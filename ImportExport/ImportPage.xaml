@@ -1,0 +1,54 @@
+﻿<Page x:Class="Profisys_Zadanie.ImportExport.ImportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+
+      xmlns:local="clr-namespace:Profisys_Zadanie.ImportExport"
+      mc:Ignorable="d" 
+      d:DesignHeight="575" d:DesignWidth="1020"
+      Title="ImportPage">
+
+    <Border Background="#1E3A5F" Margin="20" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="0">
+        <Run FontWeight="Bold" Text="Funkcja Importu Danych"/>
+        <LineBreak/>
+        <LineBreak/>
+        <Run FontWeight="Bold" Text="Jak dokonać importu?"/>
+        <LineBreak/>
+        <Run Text="1. Przygotowanie danych: Upewnij się, że Twoje pliki CSV są umieszczone w katalogu z zadaniem. Plik Documents.csv powinien zawierać rekordy dokumentów, a plik DocumentItems.csv - rekordy pozycji dokumentów."/>
+        <LineBreak/>
+        <Run Text="2. Walidacja formatu: Format plików CSV musi odpowiadać określonemu szablonowi. Pierwszy wiersz powinien zawierać nagłówki kolumn, a kolejne wiersze - dane. Pamiętaj, aby zachować poprawną kolejność kolumn oraz niezbędne relacje między dokumentami a pozycjami dokumentów."/>
+        <LineBreak/>
+        <Run Text="3. Rozpoczęcie procesu importu: Kliknij przycisk 'Import' w naszej aplikacji. Proces zostanie automatycznie uruchomiony, a postęp będzie wyświetlany na ekranie."/>
+        <LineBreak/>
+        <Run Text="4. Weryfikacja i zatwierdzenie: Po zakończeniu importu, aplikacja przedstawi podsumowanie wraz z ewentualnymi błędami lub ostrzeżeniami. Możesz wtedy zweryfikować zaimportowane dane i jeśli wszystko jest w porządku, zatwierdzić import do bazy danych."/>
+        <LineBreak/>
+        
+        <LineBreak/>
+        <Run Text="Skorzystaj z tej funkcji, aby zaoszczędzić czas i uniknąć ręcznego wprowadzania danych. Nasz system importu jest szybki, wydajny i zaprojektowany tak, aby ułatwić Ci pracę."/>
+            </TextBlock>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
+
+                <Button Style="{StaticResource LogicButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Import" Style="{StaticResource LogicButtonIcon}"/>
+                        <TextBlock Text="Importuj pliki CSV"/>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+</Page>

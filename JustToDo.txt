@@ -1,0 +1,26 @@
+﻿Stworzenie interfejsu graficznego:
+
+1) Podgląd wszystkich dokumentów
+
+a) Datagrid - Binding
+b) Przycisk z szczegółami
+c) Usuwanie, Dodawanie, Edytowanie - przyciski
+
+2) Import/Eksport - baza danych!
+a) Dodanie mozliwosci Importu
+b) Dodawanie mozliwosci Eksportu
+
+3) Informacje
+a) Readme*
+
+
+
+Główny kolor tła (ciemny granat): #1E3A5F
+
+Kolor akcentowy (jasny niebieski): #559DD9
+
+Kolor drugorzędny (jasnoszary): #CAD3E1
+
+Kolor do wyróżnienia ważnych elementów (ciepły żółty): #FFC107
+
+Dodatkowy kolor tekstowy (jasny krem): #F4ECE3
