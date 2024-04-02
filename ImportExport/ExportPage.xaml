@@ -12,14 +12,14 @@
     <Border Background="#1E3A5F" Margin="20" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="0">
-                <Run FontWeight="Bold" Text="Funkcja Eksportu Danych"/>
-                <LineBreak/>
-                <LineBreak/>
+            <Label Style="{StaticResource TopicLabel}" Content="Funkcja Eksportu Danych" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
+
+            <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="1">
                 <Run FontWeight="Bold" Text="Jak dokonać eksportu?"/>
                 <LineBreak/>
                 <Run Text="1. Wybór danych: Kliknij przycisk do eksportowania plików. Zaznacz dane, które chcesz eksportować. Możesz wybrać określone dokumenty lub pozycje dokumentów."/>
@@ -35,7 +35,7 @@
                 <Run Text="Skorzystaj z tej funkcji, aby ułatwić sobie pracę i zapewnić szybki oraz wygodny eksport danych. Nasz system eksportu jest zaprojektowany tak, aby był intuicyjny i elastyczny, dostosowując się do Twoich potrzeb."/>
             </TextBlock>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
                 <Button Style="{StaticResource LogicButton}">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Export" Style="{StaticResource LogicButtonIcon}"/>

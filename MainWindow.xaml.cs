@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Profisys_Zadanie.ImportExport;
 using Profisys_Zadanie.ListOfDocuments;
+using Profisys_Zadanie.Information;
 
 namespace Profisys_Zadanie
 {
@@ -36,6 +37,7 @@ namespace Profisys_Zadanie
             pages.Add("Import", new ImportPage());
             pages.Add("Export", new ExportPage());
             pages.Add("DocumentsTable", new DocumentsTablePage());
+            pages.Add("Information", new InformationPage());
             return pages;
         }
 
@@ -54,6 +56,16 @@ namespace Profisys_Zadanie
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void ExitAppBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinimalizeAppBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

@@ -163,6 +163,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Information\InformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ListOfDocuments\DocumentsTablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,11 +179,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Class\Document.cs" />
+    <Compile Include="Class\DocumentItems.cs" />
     <Compile Include="ImportExport\ExportPage.xaml.cs">
       <DependentUpon>ExportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ImportExport\ImportPage.xaml.cs">
       <DependentUpon>ImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Information\InformationPage.xaml.cs">
+      <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ListOfDocuments\DocumentsTablePage.xaml.cs">
       <DependentUpon>DocumentsTablePage.xaml</DependentUpon>

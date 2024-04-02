@@ -86,7 +86,7 @@
                     </Separator>
 
                     <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-                        <Button Style="{StaticResource NavigationButtonTop}">
+                        <Button Style="{StaticResource NavigationButtonTop}" Tag="Information" Click="NavigationBtn_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Information" Style="{StaticResource NavigationIconLeft}"/>
                                 <TextBlock Text="Informacje"/>
@@ -95,10 +95,10 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="3" Margin="20,0,20,20">
-                        <Button Style="{StaticResource NavigationIconTop}" Margin="0,0,10,0">
+                        <Button Style="{StaticResource NavigationIconTop}" Margin="0,0,10,0" Click="MinimalizeAppBtn_Click">
                             <Icon:PackIconMaterial Kind="WindowMinimize" Width="25" Height="25"/>
                         </Button>
-                        <Button Style="{StaticResource NavigationIconTop}">
+                        <Button Style="{StaticResource NavigationIconTop}" Click="ExitAppBtn_Click">
                             <Icon:PackIconMaterial Kind="ExitRun" Width="25" Height="25"/>
                         </Button>
                     </StackPanel>

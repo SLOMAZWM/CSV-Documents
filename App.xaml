@@ -165,6 +165,11 @@
             </Setter>
         </Style>
 
+        <Style TargetType="Label" x:Key="TopicLabel">
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="Foreground" Value="#F4ECE3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+        </Style>
 
     </Application.Resources>
 </Application>

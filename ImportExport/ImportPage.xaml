@@ -14,14 +14,14 @@
 
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="0">
-        <Run FontWeight="Bold" Text="Funkcja Importu Danych"/>
-        <LineBreak/>
-        <LineBreak/>
+            <Label Style="{StaticResource TopicLabel}" Content="Funkcja Importu Danych" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
+
+            <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="1">
         <Run FontWeight="Bold" Text="Jak dokonać importu?"/>
         <LineBreak/>
         <Run Text="1. Przygotowanie danych: Upewnij się, że Twoje pliki CSV są umieszczone w katalogu z zadaniem. Plik Documents.csv powinien zawierać rekordy dokumentów, a plik DocumentItems.csv - rekordy pozycji dokumentów."/>
@@ -37,7 +37,7 @@
         <Run Text="Skorzystaj z tej funkcji, aby zaoszczędzić czas i uniknąć ręcznego wprowadzania danych. Nasz system importu jest szybki, wydajny i zaprojektowany tak, aby ułatwić Ci pracę."/>
             </TextBlock>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
 
                 <Button Style="{StaticResource LogicButton}">
                     <StackPanel Orientation="Horizontal">
