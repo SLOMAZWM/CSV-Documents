@@ -36,7 +36,7 @@
             </TextBlock>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
-                <Button Style="{StaticResource LogicButton}">
+                <Button Style="{StaticResource LogicButton}" Click="ExportBtn_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Export" Style="{StaticResource LogicButtonIcon}"/>
                         <TextBlock Text="Eksportuj pliki CSV"/>

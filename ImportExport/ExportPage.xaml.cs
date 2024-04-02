@@ -24,5 +24,10 @@ namespace Profisys_Zadanie.ImportExport
         {
             InitializeComponent();
         }
+
+        private void ExportBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

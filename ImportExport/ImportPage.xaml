@@ -39,7 +39,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
 
-                <Button Style="{StaticResource LogicButton}">
+                <Button Style="{StaticResource LogicButton}" Click="ImportBtn_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Import" Style="{StaticResource LogicButtonIcon}"/>
                         <TextBlock Text="Importuj pliki CSV"/>

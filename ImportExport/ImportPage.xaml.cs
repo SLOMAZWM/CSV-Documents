@@ -24,5 +24,11 @@ namespace Profisys_Zadanie.ImportExport
         {
             InitializeComponent();
         }
+
+        private void ImportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ImportWindow importWindow = new ImportWindow();
+            importWindow.ShowDialog();
+        }
     }
 }
