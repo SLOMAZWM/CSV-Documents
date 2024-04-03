@@ -1,29 +1,20 @@
-﻿using CsvHelper.Configuration;
-using CsvHelper.TypeConversion;
-using CsvHelper;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Profisys_Zadanie.Class;
 using Microsoft.Win32;
+using Profisys_Zadanie.Class;
+using System.IO;
+using CsvHelper;
+using CsvHelper.Configuration;
+using System.Globalization;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Profisys_Zadanie.ImportExport
 {
-    /// <summary>
-    /// Interaction logic for ImportWindow.xaml
-    /// </summary>
     public partial class ImportWindow : Window
     {
         public List<Document> Documents = new List<Document>();
@@ -35,22 +26,154 @@ namespace Profisys_Zadanie.ImportExport
             InitializeComponent();
         }
 
+        private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(selectedDocumentCsvPath) && !string.IsNullOrEmpty(selectedPositionsCsvPath))
+            {
+                Documents = LoadDocuments(selectedDocumentCsvPath);
+                LoadDocumentItems(selectedPositionsCsvPath);
+
+                // Proces zapisu danych do bazy.
+                await SaveDataToDatabase();
+            }
+            else
+            {
+                MessageBox.Show("Proszę wybrać pliki CSV przed zatwierdzeniem.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task<List<int>> SaveDocumentsToDatabase()
+        {
+            return await ServiceDocumentDataBase.InsertDocumentsAsync(Documents);
+        }
+
+        private async Task<bool> SaveDocumentItemsToDatabase(List<int> newDocumentIds)
+        {
+            try
+            {
+                UpdateDocumentItemsWithNewIds(Documents, newDocumentIds);
+
+                List<DocumentItems> allItems = Documents.SelectMany(doc => doc.Items ?? Enumerable.Empty<DocumentItems>()).ToList();
+                await ServiceDocumentDataBase.InsertDocumentItemsAsync(allItems);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas zapisywania elementów dokumentów do bazy danych: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        private async Task<bool> SaveDataToDatabase()
+        {
+            try
+            {
+                // Krok 1: Zapisz dokumenty do bazy danych i odbierz nowe ID.
+                var newDocumentIds = await SaveDocumentsToDatabase();
+                if (newDocumentIds == null || !newDocumentIds.Any())
+                {
+                    MessageBox.Show("Nie udało się zapisać dokumentów do bazy danych.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+
+                // Krok 2: Aktualizuj ID w elementach dokumentów.
+                UpdateDocumentItemsWithNewIds(Documents, newDocumentIds);
+
+                // Krok 3: Zapisz elementy dokumentów do bazy danych.
+                var itemsSavedSuccessfully = await SaveDocumentItemsToDatabase(newDocumentIds);
+                if (!itemsSavedSuccessfully)
+                {
+                    MessageBox.Show("Nie udało się zapisać pozycji dokumentów do bazy danych.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+
+                // Jeśli wszystko poszło pomyślnie.
+                MessageBox.Show("Dane zostały pomyślnie zapisane do bazy danych.", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas zapisu do bazy danych: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        private List<Document> LoadDocuments(string filePath)
+        {
+            var documents = new List<Document>();
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ";",
+                Encoding = Encoding.UTF8,
+                HasHeaderRecord = true,
+            };
+
+            using (var reader = new StreamReader(filePath))
+            using (var csv = new CsvReader(reader, config))
+            {
+                csv.Read(); // Czyta nagłówek pliku.
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var document = new Document
+                    {
+                        Id = csv.GetField<int>("Id"),
+                        Type = csv.GetField<string>("Type"),
+                        Date = csv.GetField<string>("Date"),
+                        FirstName = csv.GetField<string>("FirstName"),
+                        LastName = csv.GetField<string>("LastName"),
+                        City = csv.GetField<string>("City"),
+                        // Dodatkowe pola dla dokumentów mogą być tutaj wczytywane
+                    };
+                    documents.Add(document);
+                }
+            }
+            return documents;
+        }
+
+        private void LoadDocumentItems(string filePath)
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = ";", Encoding = Encoding.UTF8 };
+
+            using (var reader = new StreamReader(filePath))
+            using (var csv = new CsvReader(reader, config))
+            {
+                var documentItems = csv.GetRecords<DocumentItems>().ToList();
+
+                foreach (var item in documentItems)
+                {
+                    var document = Documents.FirstOrDefault(doc => doc.Id == item.DocumentId);
+                    if (document != null)
+                    {
+                        if (document.Items == null)
+                            document.Items = new List<DocumentItems>();
+
+                        document.Items.Add(item);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Nie znaleziono dokumentu o ID {item.DocumentId} dla elementu.");
+                    }
+                }
+            }
+        }
+
         private void SelectDocumentButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (openFileDialog.ShowDialog() == true)
             {
-                selectedDocumentCsvPath = openFileDialog.FileName;
-                // Aktualizuj Label z wybraną ścieżką
-                
-                if (ValidateCsvFile(selectedDocumentCsvPath, isDocument: true))
+                // Przeprowadź walidację przed przypisaniem ścieżki
+                if (ValidateCsvFile(openFileDialog.FileName, isDocument: true))
                 {
+                    selectedDocumentCsvPath = openFileDialog.FileName;
                     MessageBox.Show("Plik został poprawnie załadowany!", "Poprawny format", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Aktualizuj Label z wybraną ścieżką
                 }
                 else
                 {
-                    MessageBox.Show("Niepoprawnie wczytany plik!", "Błąd formatu", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    MessageBox.Show("Niepoprawnie wczytany plik!", "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -61,16 +184,16 @@ namespace Profisys_Zadanie.ImportExport
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (openFileDialog.ShowDialog() == true)
             {
-                selectedPositionsCsvPath = openFileDialog.FileName;
-                // Aktualizuj Label z wybraną ścieżką
-                // Walidacja struktury pliku
-                if (ValidateCsvFile(selectedPositionsCsvPath, isDocument: false))
+                // Przeprowadź walidację przed przypisaniem ścieżki
+                if (ValidateCsvFile(openFileDialog.FileName, isDocument: false))
                 {
+                    selectedPositionsCsvPath = openFileDialog.FileName;
                     MessageBox.Show("Plik został poprawnie załadowany!", "Poprawny format", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Aktualizuj Label z wybraną ścieżką
                 }
                 else
                 {
-                    MessageBox.Show("Niepoprawnie wczytany plik!", "Błąd formatu", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    MessageBox.Show("Niepoprawnie wczytany plik!", "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -80,9 +203,10 @@ namespace Profisys_Zadanie.ImportExport
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = true,
+                Delimiter = ";",
             };
 
-            using (var reader = new StreamReader(filePath))
+            using (var reader = new StreamReader(filePath, Encoding.UTF8))
             using (var csv = new CsvReader(reader, config))
             {
                 csv.Read();
@@ -103,7 +227,7 @@ namespace Profisys_Zadanie.ImportExport
                 {
                     var missingHeaders = isDocument ?
                         GetMissingHeaders(headerRow, new[] { "Id", "Type", "Date", "FirstName", "LastName", "City" }) :
-                        GetMissingHeaders(headerRow, new[] { "DocumentID", "Ordinal", "Name", "Quantity", "Price", "TaxRate" });
+                        GetMissingHeaders(headerRow, new[] { "DocumentID", "Ordinal", "Product", "Quantity", "Price", "TaxRate" });
 
                     MessageBox.Show("Nagłówki nieprawidłowe. Brakujące nagłówki: " + string.Join(", ", missingHeaders), "Błąd walidacji", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -117,7 +241,6 @@ namespace Profisys_Zadanie.ImportExport
             return requiredHeaders.Where(requiredHeader => !headers.Contains(requiredHeader, StringComparer.OrdinalIgnoreCase));
         }
 
-
         private bool IsValidHeaderForDocument(string[] headers)
         {
             var requiredHeaders = new[] { "Id", "Type", "Date", "FirstName", "LastName", "City" };
@@ -126,8 +249,28 @@ namespace Profisys_Zadanie.ImportExport
 
         private bool IsValidHeaderForDocumentItems(string[] headers)
         {
-            var requiredHeaders = new[] { "DocumentID", "Ordinal", "Name", "Quantity", "Price", "TaxRate" };
+            var requiredHeaders = new[] { "DocumentID", "Ordinal", "Product", "Quantity", "Price", "TaxRate" };
             return requiredHeaders.All(requiredHeader => headers.Contains(requiredHeader, StringComparer.OrdinalIgnoreCase));
+        }
+
+        private void UpdateDocumentItemsWithNewIds(List<Document> documents, List<int> newDocumentIds)
+        {
+            for (int i = 0; i < documents.Count; i++)
+            {
+                var document = documents[i];
+                if (document.Items != null)
+                {
+                    foreach (var item in document.Items)
+                    {
+                        item.DocumentId = newDocumentIds[i];
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Błąd przypisywania pozycji do dokumentu!", "Błąd krytyczny", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
         }
 
         private void ExitAppBtn_Click(object sender, RoutedEventArgs e)
@@ -135,8 +278,7 @@ namespace Profisys_Zadanie.ImportExport
             this.Close();
         }
 
-
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             this.DragMove();
         }

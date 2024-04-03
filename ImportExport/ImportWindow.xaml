@@ -47,7 +47,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
-                <Button Style="{StaticResource LogicButton}" Background="DarkGreen">
+                <Button Style="{StaticResource LogicButton}" Background="DarkGreen" Click="ConfirmButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Check" Style="{StaticResource LogicButtonIcon}"/>
                         <TextBlock Text="Zatwierdź"/>

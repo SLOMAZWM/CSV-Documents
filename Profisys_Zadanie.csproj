@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CsvHelper, Version=31.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>packages\CsvHelper.31.0.2\lib\net48\CsvHelper.dll</HintPath>
+      <HintPath>packages\CsvHelper.31.0.3\lib\net48\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.IconPacks.4.11.0\lib\net47\MahApps.Metro.IconPacks.dll</HintPath>
@@ -212,6 +212,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Class\DataHelpers.cs" />
     <Compile Include="Class\Document.cs" />
     <Compile Include="Class\DocumentItems.cs" />
     <Compile Include="Class\ServiceDocumentDataBase.cs" />
