@@ -33,7 +33,6 @@ namespace Profisys_Zadanie.ImportExport
                 Documents = LoadDocuments(selectedDocumentCsvPath);
                 LoadDocumentItems(selectedPositionsCsvPath);
 
-                // Proces zapisu danych do bazy.
                 await SaveDataToDatabase();
             }
             else
@@ -68,7 +67,6 @@ namespace Profisys_Zadanie.ImportExport
         {
             try
             {
-                // Krok 1: Zapisz dokumenty do bazy danych i odbierz nowe ID.
                 var newDocumentIds = await SaveDocumentsToDatabase();
                 if (newDocumentIds == null || !newDocumentIds.Any())
                 {
@@ -76,10 +74,8 @@ namespace Profisys_Zadanie.ImportExport
                     return false;
                 }
 
-                // Krok 2: Aktualizuj ID w elementach dokumentów.
                 UpdateDocumentItemsWithNewIds(Documents, newDocumentIds);
 
-                // Krok 3: Zapisz elementy dokumentów do bazy danych.
                 var itemsSavedSuccessfully = await SaveDocumentItemsToDatabase(newDocumentIds);
                 if (!itemsSavedSuccessfully)
                 {
@@ -87,7 +83,6 @@ namespace Profisys_Zadanie.ImportExport
                     return false;
                 }
 
-                // Jeśli wszystko poszło pomyślnie.
                 MessageBox.Show("Dane zostały pomyślnie zapisane do bazy danych.", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
                 return true;
             }
@@ -111,7 +106,7 @@ namespace Profisys_Zadanie.ImportExport
             using (var reader = new StreamReader(filePath))
             using (var csv = new CsvReader(reader, config))
             {
-                csv.Read(); // Czyta nagłówek pliku.
+                csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
@@ -123,7 +118,6 @@ namespace Profisys_Zadanie.ImportExport
                         FirstName = csv.GetField<string>("FirstName"),
                         LastName = csv.GetField<string>("LastName"),
                         City = csv.GetField<string>("City"),
-                        // Dodatkowe pola dla dokumentów mogą być tutaj wczytywane
                     };
                     documents.Add(document);
                 }
@@ -164,7 +158,6 @@ namespace Profisys_Zadanie.ImportExport
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (openFileDialog.ShowDialog() == true)
             {
-                // Przeprowadź walidację przed przypisaniem ścieżki
                 if (ValidateCsvFile(openFileDialog.FileName, isDocument: true))
                 {
                     selectedDocumentCsvPath = openFileDialog.FileName;
@@ -184,7 +177,6 @@ namespace Profisys_Zadanie.ImportExport
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (openFileDialog.ShowDialog() == true)
             {
-                // Przeprowadź walidację przed przypisaniem ścieżki
                 if (ValidateCsvFile(openFileDialog.FileName, isDocument: false))
                 {
                     selectedPositionsCsvPath = openFileDialog.FileName;

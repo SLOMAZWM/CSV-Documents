@@ -17,7 +17,7 @@ namespace Profisys_Zadanie.Class
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (var transaction = connection.BeginTransaction()) // Rozpoczęcie transakcji
+                using (var transaction = connection.BeginTransaction())
                 {
                     try
                     {
@@ -36,18 +36,17 @@ namespace Profisys_Zadanie.Class
                                 command.Parameters.AddWithValue("@LastName", document.LastName);
                                 command.Parameters.AddWithValue("@City", document.City);
 
-                                // Wykonaj polecenie INSERT i pobierz nowo wstawione ID.
                                 object newId = await command.ExecuteScalarAsync();
                                 newIds.Add(Convert.ToInt32(newId));
                             }
                         }
 
-                        transaction.Commit(); // Zatwierdzenie transakcji
+                        transaction.Commit(); 
                     }
                     catch
                     {
-                        transaction.Rollback(); // Cofnięcie transakcji w przypadku błędu
-                        throw; // Ponowne zgłoszenie wyjątku do obsługi na wyższym poziomie
+                        transaction.Rollback(); 
+                        throw; 
                     }
                 }
             }
@@ -60,7 +59,7 @@ namespace Profisys_Zadanie.Class
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                using (var transaction = connection.BeginTransaction()) // Rozpoczęcie transakcji
+                using (var transaction = connection.BeginTransaction()) 
                 {
                     try
                     {
@@ -79,17 +78,17 @@ namespace Profisys_Zadanie.Class
                                 command.Parameters.AddWithValue("@Price", item.Price);
                                 command.Parameters.AddWithValue("@TaxRate", item.TaxRate);
 
-                                // Wykonaj polecenie INSERT.
+                                
                                 await command.ExecuteNonQueryAsync();
                             }
                         }
 
-                        transaction.Commit(); // Zatwierdzenie transakcji
+                        transaction.Commit(); 
                     }
                     catch
                     {
-                        transaction.Rollback(); // Cofnięcie transakcji w przypadku błędu
-                        throw; // Ponowne zgłoszenie wyjątku do obsługi na wyższym poziomie
+                        transaction.Rollback();
+                        throw; 
                     }
                 }
             }
