@@ -9,14 +9,33 @@
       d:DesignHeight="575" d:DesignWidth="1020"
       Title="DocumentsTablePage">
 
-    <Border Background="#1E3A5F" Margin="20" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
+
+    <Border Background="#1E3A5F" Margin="10" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <DataGrid Grid.Row="0" Style="{StaticResource DocumentsTable}">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                <Label Content="Ilość Dokumentów: " Style="{StaticResource TopicLabel}" FontSize="24"/>
+                <TextBlock x:Name="AmountOfDocumentsTxtBlock" Text="0" Style="{StaticResource DescriptionBlock}" FontSize="24" Margin="0,2,0,0"/>
+            </StackPanel>
+
+            <Grid Width="200" HorizontalAlignment="Right" Grid.Row="0" Margin="0,0,10,0">
+                <TextBlock Margin="15, 0" VerticalAlignment="Center" Foreground="#FFC107" IsHitTestVisible="False"
+Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+
+                <TextBox x:Name="txtFilter" Style="{StaticResource textboxSearch}"/>
+
+                <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#FFC107" HorizontalAlignment="Right"/>
+            </Grid>
+
+            <DataGrid Grid.Row="1" Style="{StaticResource DocumentsTable}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id"/>
                     <DataGridTextColumn Header="Type"/>
@@ -26,7 +45,80 @@
                     <DataGridTextColumn Header="City"/>
                 </DataGrid.Columns>
             </DataGrid>
-            
+
+            <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Vertical" Margin="10,10,0,10">
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource LogicButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Plus" Style="{StaticResource LogicButtonIcon}"/>
+                            <TextBlock Text="Dodaj dokument"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Minus" Style="{StaticResource LogicButtonIcon}"/>
+                            <TextBlock Text="Usuń dokument"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+
+                    <Button Style="{StaticResource LogicButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="FileDocumentEdit" Style="{StaticResource LogicButtonIcon}"/>
+                            <TextBlock Text="Edytuj dokument"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource LogicButtonIcon}"/>
+                            <TextBlock Text="Zobacz Szczegóły"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+            </StackPanel>
+
+            <Border Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5" Margin="0,10,10,10" Style="{StaticResource PaginationBorder}">
+                <StackPanel Orientation="Horizontal" x:Name="PaginationStackPanel">
+                    <Button Style="{StaticResource pagingButton}">
+                        <Icon:PackIconMaterial Kind="ChevronDoubleLeft" Style="{StaticResource pagingButtonIcon}"/>
+                    </Button>
+                    <Button Style="{StaticResource pagingButton}">
+                        <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
+                    </Button>
+
+                    <Rectangle Width="1" Fill="#FFC107" Margin="3,7"/>
+
+                    <ItemsControl x:Name="PaginationItemsControl">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource pagingButton}" Content="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Rectangle Width="1" Fill="#FFC107" Margin="3,7"/>
+
+                    <Button Style="{StaticResource pagingButton}">
+                        <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
+                    </Button>
+                    <Button Style="{StaticResource pagingButton}">
+                        <Icon:PackIconMaterial Kind="ChevronDoubleRight" Style="{StaticResource pagingButtonIcon}"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+
         </Grid>
     </Border>
 </Page>

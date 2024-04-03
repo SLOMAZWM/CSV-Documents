@@ -16,7 +16,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Background="#337BB7" Grid.Row="0" CornerRadius="20,20,30,30" Height="75" >
+            <Border Background="#337BB7" Grid.Row="0" CornerRadius="20,20,20,20" Height="50" >
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -94,7 +94,7 @@
                         </Button>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Grid.Column="3" Margin="20,0,20,20">
+                    <StackPanel Orientation="Horizontal" Grid.Column="3" Margin="20,0,20,0">
                         <Button Style="{StaticResource NavigationIconTop}" Margin="0,0,10,0" Click="MinimalizeAppBtn_Click">
                             <Icon:PackIconMaterial Kind="WindowMinimize" Width="25" Height="25"/>
                         </Button>

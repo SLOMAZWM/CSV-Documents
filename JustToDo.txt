@@ -16,7 +16,7 @@ a) Readme*
 
 Aktualne zadanie:
 1. Wczytywanie z baz danych rekordow do datagrida
-2. Dokonczenie interfejsu (padding do datagrida, wyszukwiarka, 3 buttony i ilosc dokumentow)
+2. Dokończenie logiki interfejsu (ilosc dokumentow, buttony, wyszukiwarka, paginacja)
 3. Wyswietlanie szczegolow dokumentu (documentitems)
 
 Na dalszy plan:

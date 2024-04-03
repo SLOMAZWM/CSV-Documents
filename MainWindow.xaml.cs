@@ -24,6 +24,7 @@ namespace Profisys_Zadanie
     public partial class MainWindow : Window
     {
         private Dictionary<string, Page> pagesDictionary;
+        private Button activeNavigationButton;
 
         public MainWindow()
         {
@@ -49,8 +50,20 @@ namespace Profisys_Zadanie
                 if (pagesDictionary.TryGetValue(pageKey, out pageToNavigate))
                 {
                     ContentFrame.Navigate(pageToNavigate);
+                    ChangeStyleToNavigateButton(button);
                 }
             }
+        }
+
+        private void ChangeStyleToNavigateButton(Button button)
+        {
+            if(activeNavigationButton != null) 
+            { 
+                activeNavigationButton.Style = FindResource("NavigationButtonTop") as Style;
+            }
+
+            button.Style = FindResource("ActivatedNavigationButtonTop") as Style;
+            activeNavigationButton = button;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

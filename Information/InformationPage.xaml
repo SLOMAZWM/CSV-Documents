@@ -8,7 +8,7 @@
       d:DesignHeight="575" d:DesignWidth="1020"
       Title="InformationPage">
 
-    <Border Background="#1E3A5F" Margin="20" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
+    <Border Background="#1E3A5F" Margin="10" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
 
         <Grid>
             
