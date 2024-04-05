@@ -36,14 +36,14 @@
                             </Separator.LayoutTransform>
                         </Separator>
 
-                        <Button Style="{StaticResource NavigationButtonTop}" Grid.Column="0" Width="auto" Height="auto" Click="NavigationBtn_Click" Tag="Information">
+                        <Button x:Name="InformationButton" Style="{StaticResource NavigationButtonTop}" Grid.Column="0" Width="auto" Height="auto" Click="NavigationBtn_Click" Tag="Information">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="BookInformationVariant" Style="{StaticResource NavigationIconLeft}"/>
                                 <TextBlock Text="Informacje"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource NavigationButtonTop}" Grid.Column="1" Width="auto" Height="auto" Click="NavigationBtn_Click" Tag="Positions">
+                        <Button x:Name="PositionsButton" Style="{StaticResource NavigationButtonTop}" Grid.Column="1" Width="auto" Height="auto" Click="NavigationBtn_Click" Tag="Positions">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="FolderInformation" Style="{StaticResource NavigationIconLeft}"/>
                                 <TextBlock Text="Pozycje"/>

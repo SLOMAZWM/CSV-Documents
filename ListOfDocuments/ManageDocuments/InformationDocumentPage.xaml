@@ -60,14 +60,14 @@
                     </StackPanel>
                 </Button>
 
-                <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0">
+                <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0" Click="ClearBtn_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="FormatClear" Style="{StaticResource LogicButtonIcon}"/>
                         <TextBlock Text="Wyczyść"/>
                     </StackPanel>
                 </Button>
                 
-                <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0">
+                <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0" Click="NextPageBtn_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Następna strona"/>
                         <Icon:PackIconMaterial Kind="ArrowRight" Style="{StaticResource LogicButtonIcon}"/>

@@ -290,7 +290,39 @@ namespace Profisys_Zadanie.Class
             }
         }
 
+        public static async Task DeleteDocumentAndDocumentItemsAsync(int documentId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        string deleteItemsQuery = "DELETE FROM DocumentItems WHERE DocumentID = @DocumentID";
+                        using (var deleteItemsCommand = new SqlCommand(deleteItemsQuery, connection, transaction))
+                        {
+                            deleteItemsCommand.Parameters.AddWithValue("@DocumentID", documentId);
+                            await deleteItemsCommand.ExecuteNonQueryAsync();
+                        }
 
+                        string deleteDocumentQuery = "DELETE FROM Documents WHERE Id = @Id";
+                        using (var deleteDocumentCommand = new SqlCommand(deleteDocumentQuery, connection, transaction))
+                        {
+                            deleteDocumentCommand.Parameters.AddWithValue("@Id", documentId);
+                            await deleteDocumentCommand.ExecuteNonQueryAsync();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
 
     }
 }

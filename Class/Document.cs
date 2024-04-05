@@ -18,6 +18,16 @@ namespace Profisys_Zadanie.Class
         public string City { get; set; }
         public List<DocumentItems> Items { get; set; } = new List<DocumentItems>();
 
+        public decimal CalculateTotalPrice()
+        {
+            decimal totalPrice = 0;
+            foreach (DocumentItems item in  Items) 
+            {
+                totalPrice += item.Price;
+            }
+            return totalPrice;
+        }
+
         public bool IsDocumentNotEmpty()
         {
             if (string.IsNullOrWhiteSpace(Type))

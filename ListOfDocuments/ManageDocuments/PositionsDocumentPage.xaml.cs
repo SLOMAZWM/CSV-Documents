@@ -151,5 +151,17 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
         {
             PositionsDataGrid.SelectedItem = null;
         }
+
+        private void PreviousPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ManageDocument.PagesDictionary.TryGetValue("Information", out Page informationPage))
+            {
+                ManageDocument.DocumentContentFrame.Navigate(informationPage);
+
+                Button InformationButton = ManageDocument.InformationButton;
+
+                ManageDocument.ChangeStyleToNavigateButton(InformationButton);
+            }
+        }
     }
 }

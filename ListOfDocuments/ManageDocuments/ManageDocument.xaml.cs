@@ -20,15 +20,15 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
     /// </summary>
     public partial class ManageDocument : Window
     {
-        private Dictionary<string, Page> pagesDictionary;
-        Button activeNavigationButton;
+        public Dictionary<string, Page> PagesDictionary {  get; set; }
+        public Button ActiveNavigationButton {  get; set; }
         public Document ActuallyManagedDocument {  get; set; }
         public bool IsEditDocument = false;
 
         public ManageDocument()
         {
             InitializeComponent();
-            pagesDictionary = InitializePages();
+            PagesDictionary = InitializePages();
             ActuallyManagedDocument = new Document();
         }
 
@@ -37,7 +37,7 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
             IsEditDocument = isEdit;
             ActuallyManagedDocument = editDocument;
             InitializeComponent();
-            pagesDictionary = InitializePages();
+            PagesDictionary = InitializePages();
         }
 
         private void NavigationBtn_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
             if(sender is Button button && button.Tag is string pageKey)
             {
                 Page pageToNavigate;
-                if (pagesDictionary.TryGetValue(pageKey, out pageToNavigate))
+                if (PagesDictionary.TryGetValue(pageKey, out pageToNavigate))
                 {
                     DocumentContentFrame.Navigate(pageToNavigate);
                     ChangeStyleToNavigateButton(button);
@@ -53,26 +53,26 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
             }
         }
 
-        private void ChangeStyleToNavigateButton(Button button)
+        public void ChangeStyleToNavigateButton(Button button)
         {
-            if (activeNavigationButton != null)
+            if (ActiveNavigationButton != null)
             {
-                activeNavigationButton.Style = FindResource("NavigationButtonTop") as Style;
+                ActiveNavigationButton.Style = FindResource("NavigationButtonTop") as Style;
             }
 
             button.Style = FindResource("ActivatedNavigationButtonTop") as Style;
-            activeNavigationButton = button;
+            ActiveNavigationButton = button;
         }
 
         private Dictionary<string, Page> InitializePages()
         {
-            pagesDictionary = new Dictionary<string, Page>()
+            PagesDictionary = new Dictionary<string, Page>()
             {
                 {"Information", new InformationDocumentPage(this) },
                 {"Positions", new PositionsDocumentPage(this) }
             };
 
-            return pagesDictionary;
+            return PagesDictionary;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

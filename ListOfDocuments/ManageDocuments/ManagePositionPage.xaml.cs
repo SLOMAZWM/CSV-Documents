@@ -26,15 +26,16 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
         PositionsDocumentPage positionsDocumentPage;
         public ManagePositionPage(PositionsDocumentPage positionsDocument)
         {
-            InitializeComponent();
             positionsDocumentPage = positionsDocument;
+            InitializeComponent();
             InitializeAdd();
+            edit = false;
         }
 
         public ManagePositionPage(PositionsDocumentPage positionsDocument, bool edited)
         {
-            InitializeComponent();
             positionsDocumentPage = positionsDocument;
+            InitializeComponent();
             edit = edited;
             InitializeEdit();
         }
@@ -78,34 +79,45 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
                     TaxRate = byte.Parse(TaxRateTxtBox.Text)
                 };
 
+                List<DocumentItems> itemsSource = positionsDocumentPage.PositionsDataGrid.ItemsSource as List<DocumentItems>;
+
+                if (itemsSource == null)
+                {
+                    itemsSource = new List<DocumentItems>();
+                }
+
                 if (!edit)
                 {
-                    var itemsSource = positionsDocumentPage.PositionsDataGrid.ItemsSource as List<DocumentItems>;
-
                     itemsSource.Add(newItemInDocument);
-                    positionsDocumentPage.PositionsDataGrid.ItemsSource = null;
-                    positionsDocumentPage.PositionsDataGrid.ItemsSource = itemsSource;
-
                 }
                 else
                 {
-                    var itemsSource = positionsDocumentPage.PositionsDataGrid.ItemsSource as List<DocumentItems>;
                     if (positionsDocumentPage.PositionsDataGrid.SelectedItem is DocumentItems selectedItem)
                     {
                         int index = itemsSource.IndexOf(selectedItem);
-                        itemsSource[index] = newItemInDocument;
-                        positionsDocumentPage.PositionsDataGrid.ItemsSource = null;
-                        positionsDocumentPage.PositionsDataGrid.ItemsSource = itemsSource;
+                        if (index != -1)
+                        {
+                            itemsSource[index] = newItemInDocument;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nie można zaktualizować wybranego elementu.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
                     }
                 }
+
+                positionsDocumentPage.PositionsDataGrid.ItemsSource = null;
+                positionsDocumentPage.PositionsDataGrid.ItemsSource = itemsSource;
 
                 positionsDocumentPage.ManageDocument.DocumentContentFrame.NavigationService.GoBack();
             }
             else
             {
-                return;
+                MessageBox.Show("Proszę wypełnić wszystkie pola.", "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
 
 
         private void QuantityTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -208,12 +220,23 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
         private void InitializeEdit()
         {
             PositionManageLbl.Content = "Edytuj pozycję";
-            DocumentItems editItem = (DocumentItems)positionsDocumentPage.PositionsDataGrid.SelectedItem;
 
-            ProductNameTxtBox.Text = editItem.Product;
-            QuantityTxtBox.Text = editItem.Quantity.ToString();
-            PriceForOneTxtBox.Text = editItem.Price.ToString();
-            TaxRateTxtBox.Text = editItem.TaxRate.ToString();
+            // Sprawdzenie, czy SelectedItem nie jest null
+            if (positionsDocumentPage.PositionsDataGrid.SelectedItem != null)
+            {
+                DocumentItems editItem = (DocumentItems)positionsDocumentPage.PositionsDataGrid.SelectedItem;
+
+                ProductNameTxtBox.Text = editItem.Product;
+                QuantityTxtBox.Text = editItem.Quantity.ToString();
+                PriceForOneTxtBox.Text = editItem.Price.ToString();
+                TaxRateTxtBox.Text = editItem.TaxRate.ToString();
+            }
+            else
+            {
+                // Obsługa sytuacji, gdy SelectedItem jest null
+                MessageBox.Show("Nie wybrano elementu do edycji.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+
     }
 }

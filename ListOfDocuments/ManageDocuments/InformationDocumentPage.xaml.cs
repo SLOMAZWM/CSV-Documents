@@ -52,8 +52,15 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
 
         private void TypeDocumentCMB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)TypeDocumentCMB.SelectedItem;
-            manageDocument.ActuallyManagedDocument.Type = selectedItem.Content.ToString();
+            if(TypeDocumentCMB.SelectedItem != null)
+            {
+                ComboBoxItem selectedItem = (ComboBoxItem)TypeDocumentCMB.SelectedItem;
+                manageDocument.ActuallyManagedDocument.Type = selectedItem.Content.ToString();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void TextUserInput_TextChanged(object sender, TextChangedEventArgs e)
@@ -62,6 +69,27 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
             manageDocument.ActuallyManagedDocument.FirstName = FirstNameTxtBox.Text;
             manageDocument.ActuallyManagedDocument.LastName = LastNameTxtBox.Text;
             manageDocument.ActuallyManagedDocument.City = CityTxtBox.Text;
+        }
+
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TypeDocumentCMB.SelectedItem = null;
+            SelectDatePicker.Text = string.Empty;
+            FirstNameTxtBox.Text = string.Empty;
+            LastNameTxtBox.Text = string.Empty;
+            CityTxtBox.Text = string.Empty;
+        }
+
+        private void NextPageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (manageDocument.PagesDictionary.TryGetValue("Positions", out Page positionsPage))
+            {
+                manageDocument.DocumentContentFrame.Navigate(positionsPage);
+
+                Button PositionsButton = manageDocument.PositionsButton;
+
+                manageDocument.ChangeStyleToNavigateButton(PositionsButton);
+            }
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)

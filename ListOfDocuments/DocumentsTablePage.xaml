@@ -30,19 +30,19 @@
                 <TextBlock Margin="15, 0" VerticalAlignment="Center" Foreground="#FFC107" IsHitTestVisible="False"
 Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
-                <TextBox x:Name="txtFilter" Style="{StaticResource textboxSearch}"/>
+                <TextBox x:Name="txtFilter" Style="{StaticResource textboxSearch}" TextChanged="TxtFilter_TextChanged"/>
 
                 <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#FFC107" HorizontalAlignment="Right"/>
             </Grid>
 
             <DataGrid x:Name="DocumentsDataGrid" HeadersVisibility="Column" Grid.Row="1" Style="{StaticResource DocumentsTable}" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
-                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                        <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}" Width="*"/>
-                        <DataGridTextColumn Header="LastName" Binding="{Binding LastName}" Width="*"/>
-                    <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
+                    <DataGridTextColumn Header="Numer" Binding="{Binding Id}" Width="*"/>
+                    <DataGridTextColumn Header="Typ Dokumentu" Binding="{Binding Type}" Width="*"/>
+                    <DataGridTextColumn Header="Data" Binding="{Binding Date}" Width="*"/>
+                        <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" Width="*"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" Width="*"/>
+                    <DataGridTextColumn Header="Miasto" Binding="{Binding City}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -56,7 +56,7 @@ Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtF
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0">
+                    <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0" Click="DeleteDocumentBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Minus" Style="{StaticResource LogicButtonIcon}"/>
                             <TextBlock Text="Usuń dokument"/>
@@ -73,7 +73,7 @@ Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtF
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0">
+                    <Button Style="{StaticResource LogicButton}" Margin="10,0,0,0" Click="DetailsDocumentBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource LogicButtonIcon}"/>
                             <TextBlock Text="Zobacz Szczegóły"/>
@@ -86,10 +86,10 @@ Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtF
 
             <Border Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="5" Margin="0,10,10,10" Style="{StaticResource PaginationBorder}">
                 <StackPanel Orientation="Horizontal" x:Name="PaginationStackPanel">
-                    <Button Style="{StaticResource pagingButton}">
+                    <Button Style="{StaticResource pagingButton}" Click="FirstPageButton_Click">
                         <Icon:PackIconMaterial Kind="ChevronDoubleLeft" Style="{StaticResource pagingButtonIcon}"/>
                     </Button>
-                    <Button Style="{StaticResource pagingButton}">
+                    <Button Style="{StaticResource pagingButton}" Click="PreviousPageButton_Click">
                         <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
                     </Button>
 
@@ -110,10 +110,10 @@ Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtF
 
                     <Rectangle Width="1" Fill="#FFC107" Margin="3,7"/>
 
-                    <Button Style="{StaticResource pagingButton}">
+                    <Button Style="{StaticResource pagingButton}" Click="NextPageButton_Click">
                         <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
                     </Button>
-                    <Button Style="{StaticResource pagingButton}">
+                    <Button Style="{StaticResource pagingButton}" Click="LastPageButton_Click">
                         <Icon:PackIconMaterial Kind="ChevronDoubleRight" Style="{StaticResource pagingButtonIcon}"/>
                     </Button>
                 </StackPanel>
