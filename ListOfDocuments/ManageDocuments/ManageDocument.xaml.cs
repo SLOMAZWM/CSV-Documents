@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Profisys_Zadanie.Class;
 
 namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
 {
@@ -21,9 +22,20 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
     {
         private Dictionary<string, Page> pagesDictionary;
         Button activeNavigationButton;
+        public Document ActuallyManagedDocument {  get; set; }
+        public bool IsEditDocument = false;
 
         public ManageDocument()
         {
+            InitializeComponent();
+            pagesDictionary = InitializePages();
+            ActuallyManagedDocument = new Document();
+        }
+
+        public ManageDocument(Document editDocument, bool isEdit)
+        {
+            IsEditDocument = isEdit;
+            ActuallyManagedDocument = editDocument;
             InitializeComponent();
             pagesDictionary = InitializePages();
         }
@@ -56,7 +68,7 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
         {
             pagesDictionary = new Dictionary<string, Page>()
             {
-                {"Information", new InformationDocumentPage() },
+                {"Information", new InformationDocumentPage(this) },
                 {"Positions", new PositionsDocumentPage(this) }
             };
 

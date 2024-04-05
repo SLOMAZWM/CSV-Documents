@@ -22,7 +22,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Wybierz typ dokumentu: " Style="{StaticResource InputLabel}"/>
-                    <ComboBox x:Name="TypeDocumentCMB" Style="{StaticResource SelectUserComboBox}" Width="135">
+                    <ComboBox x:Name="TypeDocumentCMB" Style="{StaticResource SelectUserComboBox}" Width="135" SelectionChanged="TypeDocumentCMB_SelectionChanged">
                         <ComboBoxItem Content="Invoice"/>
                         <ComboBoxItem Content="Receipt"/>
                         <ComboBoxItem Content="Order"/>
@@ -31,29 +31,29 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Wybierz date: " Style="{StaticResource InputLabel}"/>
-                    <DatePicker Style="{StaticResource SelectUserDatePicker}"/>
+                    <DatePicker x:Name="SelectDatePicker" Style="{StaticResource SelectUserDatePicker}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Wpisz imię:" Style="{StaticResource InputLabel}"/>
-                    <TextBox Style="{StaticResource UserInput}"/>
+                    <TextBox x:Name="FirstNameTxtBox" Style="{StaticResource UserInput}" PreviewTextInput="LettersOnlyPreviewTextInput" TextChanged="TextUserInput_TextChanged"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Wpisz Nazwisko:" Style="{StaticResource InputLabel}"/>
-                    <TextBox Style="{StaticResource UserInput}"/>
+                    <TextBox x:Name="LastNameTxtBox" Style="{StaticResource UserInput}" PreviewTextInput="LettersOnlyPreviewTextInput" TextChanged="TextUserInput_TextChanged"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Wpisz Miasto:" Style="{StaticResource InputLabel}"/>
-                    <TextBox Style="{StaticResource UserInput}"/>
+                    <TextBox x:Name="CityTxtBox" Style="{StaticResource UserInput}" PreviewTextInput="LettersOnlyPreviewTextInput" TextChanged="TextUserInput_TextChanged"/>
                 </StackPanel>
 
             </StackPanel>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
 
-                <Button Style="{StaticResource LogicButton}">
+                <Button Style="{StaticResource LogicButton}" Click="CancelBtn_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Cancel" Style="{StaticResource LogicButtonIcon}"/>
                         <TextBlock Text="Anuluj"/>

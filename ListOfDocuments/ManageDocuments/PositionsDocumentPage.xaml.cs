@@ -22,25 +22,77 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
     public partial class PositionsDocumentPage : Page
     {
         public short Ordinal = 1;
-        public ManageDocument ActuallyDocument { get; set; }
-        private bool edit = false;
+        public ManageDocument ManageDocument { get; set; }
+        private bool editPosition = false;
         public PositionsDocumentPage(ManageDocument actuallyD)
         {
             InitializeComponent();
-            ActuallyDocument = actuallyD;
+            ManageDocument = actuallyD;
+            InitializeEditPositionsInDocument();
+        }
+
+        private void InitializeEditPositionsInDocument()
+        {
+            if(ManageDocument.IsEditDocument == true)
+            {
+                PositionsDataGrid.ItemsSource = ManageDocument.ActuallyManagedDocument.Items;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private async void ConfirmBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<DocumentItems> documentItemsList = new List<DocumentItems>();
+
+            foreach(DocumentItems documentItems in PositionsDataGrid.Items)
+            {
+                documentItemsList.Add(documentItems);
+            }
+
+            ManageDocument.ActuallyManagedDocument.Items = documentItemsList;
+
+            if(ManageDocument.IsEditDocument == false)
+            {
+                if (ManageDocument.ActuallyManagedDocument.IsDocumentNotEmpty() == true)
+                {
+                    await ServiceDocumentDataBase.InsertDocumentAndItemsAsync(ManageDocument.ActuallyManagedDocument);
+                    MessageBox.Show("Poprawnie dodano dokument do bazy danych!", "Poprawny zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ManageDocument.Close();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (ManageDocument.ActuallyManagedDocument.IsDocumentNotEmpty() == true)
+                {
+                    await ServiceDocumentDataBase.UpdateDocumentAndItemsAsync(ManageDocument.ActuallyManagedDocument);
+                    MessageBox.Show("Poprawnie nadpisano dokument w bazie danych!", "Poprawny zapis", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ManageDocument.Close();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
 
         private void AddPositionBtn_Click(object sender, RoutedEventArgs e)
         {
-            ActuallyDocument.DocumentContentFrame.Navigate(new ManagePositionPage(this));
+            ManageDocument.DocumentContentFrame.Navigate(new ManagePositionPage(this));
         }
 
         private void EditPositionBtn_Click(object sender, RoutedEventArgs e)
         {
             if(PositionsDataGrid.SelectedItem != null)
             {
-                edit = true;
-                ActuallyDocument.DocumentContentFrame.Navigate(new ManagePositionPage(this, edit));
+                editPosition = true;
+                ManageDocument.DocumentContentFrame.Navigate(new ManagePositionPage(this, editPosition));
             }
             else
             {
@@ -64,7 +116,7 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
             }
             else
             {
-                MessageBox.Show("Zaznacz pozycję do usunięcia!", "Usuwanie nie powiodło się", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Zaznacz pozycję do usunięcia!", "Usuwanie nie powiodło się", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

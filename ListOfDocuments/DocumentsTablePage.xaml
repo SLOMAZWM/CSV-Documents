@@ -66,7 +66,7 @@ Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtF
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
 
-                    <Button Style="{StaticResource LogicButton}">
+                    <Button Style="{StaticResource LogicButton}" Click="EditDocumentBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="FileDocumentEdit" Style="{StaticResource LogicButtonIcon}"/>
                             <TextBlock Text="Edytuj dokument"/>

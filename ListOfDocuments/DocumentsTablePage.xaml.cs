@@ -24,6 +24,7 @@ namespace Profisys_Zadanie.ListOfDocuments
     public partial class DocumentsTablePage : Page
     {
         public ObservableCollection<Document> Documents {  get; set; }
+        private bool editDocument = false;
 
         public DocumentsTablePage()
         {
@@ -34,8 +35,31 @@ namespace Profisys_Zadanie.ListOfDocuments
 
         private void NewDocumentBtn_Click(object sender, RoutedEventArgs e)
         {
-            ManageDocument newDocument = new ManageDocument();
-            newDocument.ShowDialog();
+            ManageDocument newDocumentW = new ManageDocument();
+            newDocumentW.ShowDialog();
+            Documents = ServiceDocumentDataBase.GetAllInformationFromDocuments();
+            DocumentsDataGrid.ItemsSource = Documents;
+        }
+
+        private async void EditDocumentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (DocumentsDataGrid.SelectedItem is Document editedDocument)
+            {
+                List<DocumentItems> items = await ServiceDocumentDataBase.GetDocumentItemsByDocumentIdAsync(editedDocument.Id);
+
+                editedDocument.Items = items;
+                editDocument = true;
+
+                ManageDocument editWindow = new ManageDocument(editedDocument, editDocument);
+                editWindow.ShowDialog();
+
+                Documents = ServiceDocumentDataBase.GetAllInformationFromDocuments();
+                DocumentsDataGrid.ItemsSource = Documents;
+            }
+            else
+            {
+                MessageBox.Show("Wybierz dokument do edycji", "Błąd", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Page_MouseDown(object sender, MouseButtonEventArgs e)

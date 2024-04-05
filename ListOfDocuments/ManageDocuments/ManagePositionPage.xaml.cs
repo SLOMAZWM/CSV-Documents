@@ -41,22 +41,22 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
 
         private bool IsNotEmpty()
         {
-            if(string.IsNullOrEmpty(ProductNameTxtBox.Text))
+            if (string.IsNullOrEmpty(ProductNameTxtBox.Text))
             {
                 MessageBox.Show("Wpisz nazwę produktu!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if(string.IsNullOrEmpty(QuantityTxtBox.Text))
+            if (string.IsNullOrEmpty(QuantityTxtBox.Text))
             {
                 MessageBox.Show("Wpisz ilość!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if(string.IsNullOrEmpty(PriceForOneTxtBox.Text))
+            if (string.IsNullOrEmpty(PriceForOneTxtBox.Text))
             {
                 MessageBox.Show("Wpisz cenę za sztukę!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
-            if(string.IsNullOrEmpty(TaxRateTxtBox.Text))
+            if (string.IsNullOrEmpty(TaxRateTxtBox.Text))
             {
                 MessageBox.Show("Wpisz procent podatku!", "Błąd wypełnienia", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
@@ -67,43 +67,46 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
 
         private void AddEditProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(edit == false) 
+            if (IsNotEmpty())
             {
-                if (IsNotEmpty())
+                DocumentItems newItemInDocument = new DocumentItems()
                 {
-                    positionsDocumentPage.Ordinal = (short)positionsDocumentPage.PositionsDataGrid.Items.Count;
-                    positionsDocumentPage.Ordinal++;
-                    DocumentItems newItemInDocument = new DocumentItems()
-                    {
-                        Ordinal = positionsDocumentPage.Ordinal,
-                        Product = ProductNameTxtBox.Text,
-                        Quantity = short.Parse(QuantityTxtBox.Text),
-                        Price = decimal.Parse(PriceForOneTxtBox.Text),
-                        TaxRate = byte.Parse(TaxRateTxtBox.Text)
-                    };
+                    Ordinal = (short)(positionsDocumentPage.PositionsDataGrid.Items.Count + 1),
+                    Product = ProductNameTxtBox.Text,
+                    Quantity = short.Parse(QuantityTxtBox.Text),
+                    Price = decimal.Parse(PriceForOneTxtBox.Text),
+                    TaxRate = byte.Parse(TaxRateTxtBox.Text)
+                };
 
-                    positionsDocumentPage.PositionsDataGrid.Items.Add(newItemInDocument);
-                    positionsDocumentPage.Ordinal++;
-                    positionsDocumentPage.ActuallyDocument.DocumentContentFrame.NavigationService.GoBack();
+                if (!edit)
+                {
+                    var itemsSource = positionsDocumentPage.PositionsDataGrid.ItemsSource as List<DocumentItems>;
+
+                    itemsSource.Add(newItemInDocument);
+                    positionsDocumentPage.PositionsDataGrid.ItemsSource = null;
+                    positionsDocumentPage.PositionsDataGrid.ItemsSource = itemsSource;
+
                 }
                 else
                 {
-                    return;
+                    var itemsSource = positionsDocumentPage.PositionsDataGrid.ItemsSource as List<DocumentItems>;
+                    if (positionsDocumentPage.PositionsDataGrid.SelectedItem is DocumentItems selectedItem)
+                    {
+                        int index = itemsSource.IndexOf(selectedItem);
+                        itemsSource[index] = newItemInDocument;
+                        positionsDocumentPage.PositionsDataGrid.ItemsSource = null;
+                        positionsDocumentPage.PositionsDataGrid.ItemsSource = itemsSource;
+                    }
                 }
+
+                positionsDocumentPage.ManageDocument.DocumentContentFrame.NavigationService.GoBack();
             }
             else
             {
-                DocumentItems editItemInDocument = (DocumentItems)positionsDocumentPage.PositionsDataGrid.SelectedItem;
-
-                editItemInDocument.Product = ProductNameTxtBox.Text;
-                editItemInDocument.Quantity = short.Parse(QuantityTxtBox.Text);
-                editItemInDocument.Price = decimal.Parse(PriceForOneTxtBox.Text);
-                editItemInDocument.TaxRate = byte.Parse(TaxRateTxtBox.Text);
-
-                positionsDocumentPage.PositionsDataGrid.Items.Refresh();
-                positionsDocumentPage.ActuallyDocument.DocumentContentFrame.NavigationService.GoBack();
+                return;
             }
         }
+
 
         private void QuantityTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -122,11 +125,10 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
                     MessageBox.Show("Wprowadzona wartość jest poza zakresem dla ilości! Maksymalna dozwolona wartość to 32 767.", "Błąd wartości", MessageBoxButton.OK, MessageBoxImage.Error);
 
                     textBox.Text = textBox.Text.Remove(textBox.Text.Length - 1);
-                    textBox.SelectionStart = textBox.Text.Length; 
+                    textBox.SelectionStart = textBox.Text.Length;
                 }
             }
         }
-
 
         private void PriceForOneTxtBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -145,7 +147,6 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
                 e.Handled = !isDigitOrComma;
             }
         }
-
 
         private void PriceForOneTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -196,7 +197,7 @@ namespace Profisys_Zadanie.ListOfDocuments.ManageDocuments
 
         private void LocationExitBtn_Click(object sender, EventArgs e)
         {
-            positionsDocumentPage.ActuallyDocument.DocumentContentFrame.NavigationService.GoBack();
+            positionsDocumentPage.ManageDocument.DocumentContentFrame.NavigationService.GoBack();
         }
 
         private void InitializeAdd()
