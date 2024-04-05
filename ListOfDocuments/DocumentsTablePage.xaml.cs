@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Profisys_Zadanie.Class;
+using Profisys_Zadanie.ListOfDocuments.ManageDocuments;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,24 @@ namespace Profisys_Zadanie.ListOfDocuments
     /// </summary>
     public partial class DocumentsTablePage : Page
     {
+        public ObservableCollection<Document> Documents {  get; set; }
+
         public DocumentsTablePage()
         {
             InitializeComponent();
+            Documents = ServiceDocumentDataBase.GetAllInformationFromDocuments();
+            DocumentsDataGrid.ItemsSource = Documents;
+        }
+
+        private void NewDocumentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ManageDocument newDocument = new ManageDocument();
+            newDocument.ShowDialog();
+        }
+
+        private void Page_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DocumentsDataGrid.SelectedItem = null;
         }
     }
 }

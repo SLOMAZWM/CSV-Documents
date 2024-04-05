@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Collections.ObjectModel;
 
 namespace Profisys_Zadanie.Class
 { 
@@ -92,6 +93,38 @@ namespace Profisys_Zadanie.Class
                     }
                 }
             }
+        }
+
+        public static ObservableCollection<Document> GetAllInformationFromDocuments()
+        {
+            ObservableCollection<Document> documents = new ObservableCollection<Document>();
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT Id, Type, Date, FirstName, LastName, City FROM dbo.Documents";
+
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Document document = new Document()
+                            {
+                                Id = reader.GetInt32(0),
+                                Type = reader.IsDBNull(1) ? null : reader.GetString(1),
+                                Date = reader.IsDBNull(2) ? null : reader.GetString(2),
+                                FirstName = reader.IsDBNull(3) ? null : reader.GetString(3),
+                                LastName = reader.IsDBNull(4) ? null : reader.GetString(4),
+                                City = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                Items = new List<DocumentItems>()
+                            };
+                            documents.Add(document);
+                        }
+                    }
+                }
+            }
+            return documents;
         }
 
     }

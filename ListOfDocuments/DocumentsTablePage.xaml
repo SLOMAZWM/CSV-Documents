@@ -7,7 +7,7 @@
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="575" d:DesignWidth="1020"
-      Title="DocumentsTablePage">
+      Title="DocumentsTablePage" MouseDown="Page_MouseDown">
 
     <Page.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -35,21 +35,21 @@ Panel.ZIndex="1" Text="Wyszukaj tutaj ..." Visibility="{Binding ElementName=txtF
                 <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0,0,15,0" Foreground="#FFC107" HorizontalAlignment="Right"/>
             </Grid>
 
-            <DataGrid Grid.Row="1" Style="{StaticResource DocumentsTable}">
+            <DataGrid x:Name="DocumentsDataGrid" HeadersVisibility="Column" Grid.Row="1" Style="{StaticResource DocumentsTable}" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id"/>
-                    <DataGridTextColumn Header="Type"/>
-                    <DataGridTextColumn Header="Date"/>
-                    <DataGridTextColumn Header="FirstName"/>
-                    <DataGridTextColumn Header="LastName"/>
-                    <DataGridTextColumn Header="City"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                        <DataGridTextColumn Header="FirstName" Binding="{Binding FirstName}" Width="*"/>
+                        <DataGridTextColumn Header="LastName" Binding="{Binding LastName}" Width="*"/>
+                    <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 
             <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Vertical" Margin="10,10,0,10">
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Style="{StaticResource LogicButton}">
+                    <Button Style="{StaticResource LogicButton}" Click="NewDocumentBtn_Click">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Plus" Style="{StaticResource LogicButtonIcon}"/>
                             <TextBlock Text="Dodaj dokument"/>

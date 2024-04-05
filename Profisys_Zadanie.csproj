@@ -204,6 +204,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ListOfDocuments\ManageDocuments\InformationDocumentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfDocuments\ManageDocuments\ManageDocument.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfDocuments\ManageDocuments\ManagePositionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListOfDocuments\ManageDocuments\PositionsDocumentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -216,6 +232,7 @@
     <Compile Include="Class\Document.cs" />
     <Compile Include="Class\DocumentItems.cs" />
     <Compile Include="Class\ServiceDocumentDataBase.cs" />
+    <Compile Include="Class\ServiceDocumentDataGrid.cs" />
     <Compile Include="ImportExport\ExportPage.xaml.cs">
       <DependentUpon>ExportPage.xaml</DependentUpon>
     </Compile>
@@ -230,6 +247,18 @@
     </Compile>
     <Compile Include="ListOfDocuments\DocumentsTablePage.xaml.cs">
       <DependentUpon>DocumentsTablePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfDocuments\ManageDocuments\InformationDocumentPage.xaml.cs">
+      <DependentUpon>InformationDocumentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfDocuments\ManageDocuments\ManageDocument.xaml.cs">
+      <DependentUpon>ManageDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfDocuments\ManageDocuments\ManagePositionPage.xaml.cs">
+      <DependentUpon>ManagePositionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfDocuments\ManageDocuments\PositionsDocumentPage.xaml.cs">
+      <DependentUpon>PositionsDocumentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

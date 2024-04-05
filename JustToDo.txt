@@ -1,25 +1,28 @@
-﻿Stworzenie interfejsu graficznego:
+﻿Aktualne zadanie:
+1. Dokończenie logiki interfejsu (ilosc dokumentow, buttony, wyszukiwarka, paginacja)
+2. Wyswietlanie szczegolow dokumentu (documentitems)
+3. Eksport bazy danych do dwoch plikow (document i documentitems)
+4. Stworzenie Informacji (coś ala readme)
 
-1) Podgląd wszystkich dokumentów
+1a) Stworzenie walidacji dla informacji w tworzeniu nowego dokumentu
+1b) Polaczenie informacji dokumentow z lista pozycji z drugiego page w jeden obiekt - stworzenie INSERTA do bazy danych
+1c) Stworzenie edycji dla dokumentow
+1d) Usuwanie dokumentow
+1e) Szczegoly dokumentow
+1f) Wyszukiwarka
+1g) Ilosc dokumentow
+1h) Paginacja
 
-a) Datagrid - Binding
-b) Przycisk z szczegółami
-c) Usuwanie, Dodawanie, Edytowanie - przyciski
+2a) Stworzenie okienka z szczegolami
+2b) Dodatek - mozliwosc wydruku
 
-2) Import/Eksport - baza danych!
-a) Dodanie mozliwosci Importu
-b) Dodawanie mozliwosci Eksportu
-
-3) Informacje
-a) Readme*
-
-
-Aktualne zadanie:
-1. Wczytywanie z baz danych rekordow do datagrida
-2. Dokończenie logiki interfejsu (ilosc dokumentow, buttony, wyszukiwarka, paginacja)
-3. Wyswietlanie szczegolow dokumentu (documentitems)
 
 Na dalszy plan:
+1)DataGrid:
+-Naprawa zaznaczenia tylko zawartosci wiersza, a nie całego wiersza
+-Naprawa datepickera (ikony, nie podswietla sie kalendarz na najechaniu myszka)
+-Poprawa stylizacji dla comboboxa - w srodku zaznaczenie myszka na kolor #FFC107 borderbrush
+
 2) Import:
 -Optymalizacja zapisu poprzez SQLBULK?
 
