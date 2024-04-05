@@ -41,6 +41,13 @@ namespace Profisys_Zadanie.ListOfDocuments
             AllDocuments = ServiceDocumentDataBase.GetAllInformationFromDocuments();
             RefreshDataInDocumentsDataGrid();
             SetupPagination();
+
+            DataRefreshService.OnDataRefreshRequested += LoadDocuments;
+        }
+
+        protected void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            DataRefreshService.OnDataRefreshRequested -= LoadDocuments;
         }
 
         private void SetupPagination()

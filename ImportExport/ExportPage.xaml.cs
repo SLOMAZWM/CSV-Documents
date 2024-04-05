@@ -27,7 +27,8 @@ namespace Profisys_Zadanie.ImportExport
 
         private void ExportBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            ExportWindow exportWindow = new ExportWindow();
+            exportWindow.ShowDialog();
         }
     }
 }

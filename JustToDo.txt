@@ -1,12 +1,9 @@
 ﻿Aktualne zadanie:
-1. Dokończenie logiki interfejsu (ilosc dokumentow, buttony, wyszukiwarka, paginacja)
 3. Eksport bazy danych do dwoch plikow (document i documentitems)
 4. Stworzenie Informacji (coś ala readme)
 
 
-NIE ZAPOMNIJ:
-NAWIGACJA po tworzeniu nowego dokumentu i czyszczenie w Informacjach, zmien zarzadzanie dokumentem w zaleznosci od wyboru uzytkownika
-
+Do naprawy CITO:
 Naprawa przypisywania do textboxow nazwiska i miasta - dlaczego sie psuje?
 
 Na dalszy plan:

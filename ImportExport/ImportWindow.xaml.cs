@@ -84,6 +84,7 @@ namespace Profisys_Zadanie.ImportExport
                 }
 
                 MessageBox.Show("Dane zostały pomyślnie zapisane do bazy danych.", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                DataRefreshService.RequestDataRefresh();
                 return true;
             }
             catch (Exception ex)

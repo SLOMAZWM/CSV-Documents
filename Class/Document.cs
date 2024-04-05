@@ -9,7 +9,6 @@ namespace Profisys_Zadanie.Class
 {
     public class Document
     {
-        public int OriginalId { get; set; }
         public int Id { get; set; }
         public string Type { get; set; }
         public string Date { get; set; }
