@@ -22,17 +22,20 @@
             <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="1">
                 <Run FontWeight="Bold" Text="Jak dokonać eksportu?"/>
                 <LineBreak/>
-                <Run Text="1. Wybór danych: Kliknij przycisk do eksportowania plików. Zaznacz dane, które chcesz eksportować. Możesz wybrać określone dokumenty lub pozycje dokumentów."/>
+                <Run Text="1. Kliknij w przycisk 'Eksportuj pliki CSV'"/>
                 <LineBreak/>
-                <Run Text="2. Ustawienia eksportu: Określ format wyjściowy dla swoich danych. Aktualnie możesz eksportować dane TYLKO do plików CSV"/>
+                <Run Text="2. Wybierz folder za pomocą przycisku w nowym oknie"/>
                 <LineBreak/>
-                <Run Text="3. Rozpoczęcie procesu eksportu: Kliknij przycisk 'Eksport' w naszej aplikacji. Proces zostanie automatycznie uruchomiony, a postęp będzie wyświetlany na ekranie."/>
+                <Run Text="3. Po wybraniu folderu, kliknij zatwierdź - operacja eksportowania będzie działać w tle aplikacji, możesz zamknąć to okno."/>
                 <LineBreak/>
-                <Run Text="4. Pobieranie plików: Po zakończeniu eksportu, aplikacja umożliwi pobranie wygenerowanych plików. Możesz je zapisywać lokalnie."/>
+                <Run Text="4. Gdy pliki zostaną wyeksportowane, dostaniesz powiadomienie w okienku aplikacji, pliki automatycznie będą nazywać się 'Documents.csv' i 'DocumentItems.csv' - co kolejno odpowiada: dokumentom i pozycjom w dokumentach."/>
                 <LineBreak/>
                 <LineBreak/>
                 <LineBreak/>
-                <Run Text="Skorzystaj z tej funkcji, aby ułatwić sobie pracę i zapewnić szybki oraz wygodny eksport danych. Nasz system eksportu jest zaprojektowany tak, aby był intuicyjny i elastyczny, dostosowując się do Twoich potrzeb."/>
+                <Run Text="Wyeksportowane pliki możesz przenieść na zewnętrzny dysk i zaimportować je do bazy danych na innym komputerze, lub zaimportować ponownie na tym samym komputerze" />
+                     <LineBreak/>
+                     <LineBreak/>
+                <Run Text="UWAGA: Eksport bazy danych do plików csv, nie powoduje usunięcia bazy danych!"/>
             </TextBlock>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">

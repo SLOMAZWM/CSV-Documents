@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Profisys_Zadanie.Information"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="575" d:DesignWidth="1020"
       Title="InformationPage">
@@ -11,6 +12,13 @@
     <Border Background="#1E3A5F" Margin="10" BorderBrush="#559DD9" BorderThickness="1" CornerRadius="20">
 
         <Grid>
+
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="#F4ECE3"/>
+                    <Setter Property="FontSize" Value="22"/>
+                </Style>
+            </Grid.Resources>
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -21,11 +29,32 @@
             <Label Grid.Row="0" Content="Instrukcja Obsługi" Style="{StaticResource TopicLabel}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <TextBlock Style="{StaticResource DescriptionBlock}" Grid.Row="1">
-                <Run FontWeight="Bold" Text="Lista Dokumentów" FontSize="20"/>
+                <Run FontWeight="Bold" Text="Instrukcja" FontSize="20"/>
                 <LineBreak/>
                 <LineBreak/>
-                <Run Text="Testowy tekst fajny jest :D"/>
+                <Run Text="Tutaj pojawi się instrukcja? - może kiedyś."/>
+                <LineBreak/>
+                <LineBreak/>
+                <LineBreak/>
             </TextBlock>
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="Human" Style="{StaticResource NavigationIconLeft}" Foreground="#FFC107" Margin="0,5,5,0"/>
+                    <TextBlock Text="Twórca Programu: Marcin Słomka" VerticalAlignment="Center"/>
+                    <Icon:PackIconMaterial Kind="Human" Style="{StaticResource NavigationIconLeft}" Foreground="#FFC107" Margin="5,5,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="BookEducation" Style="{StaticResource NavigationIconLeft}" Foreground="#FFC107" Margin="0,5,5,0"/>
+                    <TextBlock Text="Student - Politechnika Opolska"/>
+                    <Icon:PackIconMaterial Kind="BookEducation" Style="{StaticResource NavigationIconLeft}" Foreground="#FFC107" Margin="5,5,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="Copyright" Style="{StaticResource NavigationIconLeft}" Foreground="#FFC107" Margin="0,5,5,0"/>
+                    <TextBlock Text="Wszelkie prawa zastrzeżone"/>
+                    <Icon:PackIconMaterial Kind="Copyright" Style="{StaticResource NavigationIconLeft}" Foreground="#FFC107" Margin="5,5,0,0"/>
+                </StackPanel>
+            </StackPanel>
 
         </Grid>
         

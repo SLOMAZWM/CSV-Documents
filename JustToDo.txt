@@ -1,7 +1,5 @@
 ﻿Aktualne zadanie:
-3. Eksport bazy danych do dwoch plikow (document i documentitems)
-4. Stworzenie Informacji (coś ala readme)
-
+5.Optymalizacja zapisu importu poprzez SQLBULK?
 
 Do naprawy CITO:
 Naprawa przypisywania do textboxow nazwiska i miasta - dlaczego sie psuje?
@@ -13,8 +11,6 @@ Na dalszy plan:
 -Poprawa stylizacji dla comboboxa - w srodku zaznaczenie myszka na kolor #FFC107 borderbrush
 -Walidacja dla datepickera (stwortzenie dedykowanego textboxa laczacego sie z date pickerem twoway?)
 
-2) Import:
--Optymalizacja zapisu poprzez SQLBULK?
 
 3) Struktura bazy danych i klasy:
 -Odnalezienie największej zmiennej do przechowywania indentyfikatorów kluczy, w celu upewnienia się że nie dojdzie do

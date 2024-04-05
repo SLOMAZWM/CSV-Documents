@@ -24,17 +24,20 @@
             <TextBlock Style="{StaticResource DescriptionBlock}" TextWrapping="Wrap" Grid.Row="1">
         <Run FontWeight="Bold" Text="Jak dokonać importu?"/>
         <LineBreak/>
-        <Run Text="1. Przygotowanie danych: Upewnij się, że Twoje pliki CSV są umieszczone w katalogu z zadaniem. Plik Documents.csv powinien zawierać rekordy dokumentów, a plik DocumentItems.csv - rekordy pozycji dokumentów."/>
+        <Run Text="1. Kliknij w przycisk 'Importuj pliki CSV'."/>
         <LineBreak/>
-        <Run Text="2. Walidacja formatu: Format plików CSV musi odpowiadać określonemu szablonowi. Pierwszy wiersz powinien zawierać nagłówki kolumn, a kolejne wiersze - dane. Pamiętaj, aby zachować poprawną kolejność kolumn oraz niezbędne relacje między dokumentami a pozycjami dokumentów."/>
+        <Run Text="2. W nowym oknie wybierz pliki documents.csv i documentitems.csv - odpowiednio dla dokumentów i pozycji dokumentów, przy wyborze nastąpi automatyczna walidacja, opisana w 3 kroku."/>
         <LineBreak/>
-        <Run Text="3. Rozpoczęcie procesu importu: Kliknij przycisk 'Import' w naszej aplikacji. Proces zostanie automatycznie uruchomiony, a postęp będzie wyświetlany na ekranie."/>
+        <Run Text="3. Walidacja formatu: Format plików CSV musi odpowiadać określonemu szablonowi. Pierwszy wiersz powinien zawierać nagłówki kolumn, a kolejne wiersze - dane. Pamiętaj, aby zachować poprawną kolejność kolumn oraz niezbędne relacje między dokumentami a pozycjami dokumentów."/>
         <LineBreak/>
-        <Run Text="4. Weryfikacja i zatwierdzenie: Po zakończeniu importu, aplikacja przedstawi podsumowanie wraz z ewentualnymi błędami lub ostrzeżeniami. Możesz wtedy zweryfikować zaimportowane dane i jeśli wszystko jest w porządku, zatwierdzić import do bazy danych."/>
+        <Run Text="4. Kliknij zatwierdź - po pomyślnym imporcie dane z plików csv, automatycznie pojawią się w bazie danych, co za tym idzie ujrzysz je w 'Lista Dokumentów'."/>
         <LineBreak/>
         
         <LineBreak/>
-        <Run Text="Skorzystaj z tej funkcji, aby zaoszczędzić czas i uniknąć ręcznego wprowadzania danych. Nasz system importu jest szybki, wydajny i zaprojektowany tak, aby ułatwić Ci pracę."/>
+        <Run Text="Skorzystaj z tej funkcji, aby zaoszczędzić czas i uniknąć ręcznego wprowadzania danych. Nasz system importu jest zintegrowany z systemem eksportu."/>
+                <LineBreak/>
+                <LineBreak/>
+                <Run Text="UWAGA: Import nigdy nie nadpisze istniejących dokumentów i ich pozycji - zawsze doda nowe rekordy do bazy danych!"/>
             </TextBlock>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15,0,15,15">
