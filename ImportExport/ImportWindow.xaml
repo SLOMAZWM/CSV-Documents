@@ -32,7 +32,7 @@
                         <TextBlock Text="Wybierz Dokument"/>
                     </StackPanel>
                 </Button>
-                <Label Content="Wybrany plik dokumentów: Brak" Style="{StaticResource InformationAboutFile}" HorizontalAlignment="Center"/>
+                <Label x:Name="SelectedDocumentLabel" Content="Wybrany plik dokumentów: Brak" Style="{StaticResource InformationAboutFile}" HorizontalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -43,7 +43,7 @@
                         <TextBlock Text="Wybierz Pozycje"/>
                     </StackPanel>
                 </Button>
-                <Label Content="Wybrany plik pozycji: Brak" Style="{StaticResource InformationAboutFile}" HorizontalAlignment="Center"/>
+                <Label x:Name="SelectedPositionsLabel" Content="Wybrany plik pozycji: Brak" Style="{StaticResource InformationAboutFile}" HorizontalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">

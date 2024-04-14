@@ -163,7 +163,7 @@ namespace Profisys_Zadanie.ImportExport
                 {
                     selectedDocumentCsvPath = openFileDialog.FileName;
                     MessageBox.Show("Plik został poprawnie załadowany!", "Poprawny format", MessageBoxButton.OK, MessageBoxImage.Information);
-                    // Aktualizuj Label z wybraną ścieżką
+                    SelectedDocumentLabel.Content = Path.GetFileName(openFileDialog.FileName);
                 }
                 else
                 {
@@ -182,7 +182,7 @@ namespace Profisys_Zadanie.ImportExport
                 {
                     selectedPositionsCsvPath = openFileDialog.FileName;
                     MessageBox.Show("Plik został poprawnie załadowany!", "Poprawny format", MessageBoxButton.OK, MessageBoxImage.Information);
-                    // Aktualizuj Label z wybraną ścieżką
+                    SelectedPositionsLabel.Content = Path.GetFileName(openFileDialog.FileName);
                 }
                 else
                 {

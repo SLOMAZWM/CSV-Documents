@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using CsvHelper;
@@ -34,6 +33,7 @@ namespace Profisys_Zadanie.ImportExport
                 {
                     selectedFolderPath = dialog.FileName;
                     MessageBox.Show($"Folder został wybrany: {selectedFolderPath}", "Wybrany Folder", MessageBoxButton.OK, MessageBoxImage.Information);
+                    SelectedFolderLabel.Content = selectedFolderPath;
                 }
 
                 if (wasActive)
@@ -47,7 +47,6 @@ namespace Profisys_Zadanie.ImportExport
         {
             try
             {
-                
                 var documents = ServiceDocumentDataBase.GetAllInformationFromDocuments();
                 var allDocumentItems = new List<DocumentItems>();
 
@@ -84,9 +83,6 @@ namespace Profisys_Zadanie.ImportExport
                 MessageBox.Show($"Wystąpił błąd podczas eksportowania danych: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
-
 
         private void ExitAppBtn_Click(object sender, RoutedEventArgs e)
         {

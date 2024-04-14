@@ -30,7 +30,7 @@
                         <TextBlock Text="Wybierz Folder"/>
                     </StackPanel>
                 </Button>
-                <Label Content="Eksport plików Documents.csv i DocumentItems.csv" Style="{StaticResource InformationAboutFile}" HorizontalAlignment="Center"/>
+                <Label x:Name="SelectedFolderLabel" Content="Eksport plików Documents.csv i DocumentItems.csv" Style="{StaticResource InformationAboutFile}" HorizontalAlignment="Center"/>
             </StackPanel>
 
 
